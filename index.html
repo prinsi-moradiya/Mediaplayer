@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewpoint", content="width=device-width, initial-scalp=1.0">
+    <title>
+        Music Player
+    </title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
+</head>
+<body>
+        <div class="container">
+            <div class="music-player">
+                <nav>
+                    <div class="circle">
+                        <i class="fa-solid fa-angles-left"></i>
+                    </div>
+                    <div class="circle">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+                </nav>  
+                <img src="media/playimage.jpeg" class="song-img">
+                <h3>
+                    Sir Mukut Kundal Tilak Charu
+                </h3>
+                <p> Kashtbhanjan Dada Sarangpur</p>
+
+                 <audio  id="song">
+                    <source src="media/sir_mukut_kundal.mp3" type="audio/mp3">
+                </audio> 
+                <input type="range" value="0" id="progress">
+                <div class="controls">
+                    
+                    <div><i class="fa-solid fa-backward"></i></div>
+                    <div onclick="playPause()"><i class="fa-solid fa-play" id="ctrIcon"></i></div>
+                    <div><i class="fa-solid fa-forward"></i></div>
+                
+                </div>
+            </div>
+        </div>
+<script>
+    let progress = document.getElementById("progress");
+    let song = document.getElementById("song");
+    let ctrIcon = document.getElementById("ctrIcon");
+
+    song.onloadedmetadata = function(){
+        progress.max = song.duration;
+        progress.value = song.currentTime;
+
+    }
+
+function playPause(){
+    if(ctrIcon.classList.contains("fa-pause")){
+        song.pause();
+        ctrIcon.classList.remove("fa-pause");
+        ctrIcon.classList.add("fa-play");
+    }
+    else{
+        song.play();
+        ctrIcon.classList.add("fa-pause");
+        ctrIcon.classList.remove("fa-play");
+    }
+}
+
+if(song.play()){
+    setInterval(() => {
+        progress.value = song.currentTime;
+    }, 500);
+}
+
+progress.onchange = function(){
+    song.play();
+    song.currentTime = progress.value;
+    ctrIcon.classList.add("fa-pause");
+    ctrIcon.classList.remove("fa-play");
+}
+
+
+</script>
+</body>
+
+</html>
